@@ -1,0 +1,70 @@
+class SignupController < ApplicationController
+	def index 
+	end
+
+	def new_owner
+		@owner = Owner.new
+		render 'home_owner'
+	end
+
+
+	def new_customer
+		@customer = Customer.new
+		render 'home_customer'
+	end
+
+	def create
+	  if params[:customer].present?
+		  create_customer
+		else
+			create_owner
+		end
+	end
+ 
+ def login
+ end
+
+ def login_customer
+ 	email = params[:signup] [:email]
+ 	password = params[:signup] [:password]
+ 	@customer = Customer.find_by(email: email)
+
+ 	if @customer&.authenticate(password)
+ 		redirect_to home_path
+ 	else 
+ 		render :login , status: :unprocessable_entity
+ 	end
+
+ end
+
+	private 
+
+	def create_customer 
+		@customer = Customer.new(customer_params)
+		if @customer.save!
+			redirect_to login_path
+		else
+			render :home_customer , status: :unprocessable_entity
+		end
+	end
+
+
+	def create_owner 
+		@owner = Owner.new(owner_params)
+		if @owner.save!
+			redirect_to home_path
+		else
+			render :home_customer , status: :unprocessable_entity
+		end
+	end
+
+	def customer_params
+		params.require(:customer).permit(:name,:password,:email,:password_confirmation)
+	end
+
+	def owner_params
+		params.require(:owner).permit(:name,:password,:email,:password_confirmation)
+	end
+
+
+end
