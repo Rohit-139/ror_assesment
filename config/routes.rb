@@ -10,6 +10,16 @@ Rails.application.routes.draw do
   post '/home', to: 'signup#create'
   get '/login', to: 'signup#login'
   post '/login', to: 'signup#login_customer'
+  resources :restaurants do
+    resources :dishes do 
+     collection do
+      get 'search'
+     end
+    end
+  end
+
+  get '/customer', to: 'customers#index'
+  get "/dishes", to: 'customers#dishes'
 
 
 

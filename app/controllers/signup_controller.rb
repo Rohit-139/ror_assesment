@@ -32,7 +32,9 @@ class SignupController < ApplicationController
  	if @customer&.authenticate(password)
  		redirect_to home_path
  	else 
+
  		render :login , status: :unprocessable_entity
+
  	end
 
  end
@@ -44,6 +46,7 @@ class SignupController < ApplicationController
 		if @customer.save!
 			redirect_to login_path
 		else
+			flash.now[:alert] = @customer.errors.full_messages.to_sentence
 			render :home_customer , status: :unprocessable_entity
 		end
 	end
@@ -52,7 +55,8 @@ class SignupController < ApplicationController
 	def create_owner 
 		@owner = Owner.new(owner_params)
 		if @owner.save!
-			redirect_to home_path
+			session[:owner_id] = @owner.id
+			redirect_to new_restaurant_path
 		else
 			render :home_customer , status: :unprocessable_entity
 		end
