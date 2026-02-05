@@ -1,0 +1,20 @@
+<div>
+	<h2>Dish List of <%= @restaurant.name %></h2>
+  <% if @dishes.present? %>
+	<table border="5px" cellpadding="5px" cellspacing="5px">
+		<th>Name</th>
+		<th>Description</th>
+		<th>Price</th>
+	<% @dishes.each do |dish| %>
+	    <tr>
+		 <td><h4><%= dish.name %></h4></td>
+		 <td><h4><%= dish.description %></h4></td>
+		 <td><h4><%= dish.price %></h4></td>
+
+		</tr>
+	
+	<% end %>
+	<% else %>
+	<h3>No dishes in this Restaurant</h3>
+	<% end %>
+</div>
