@@ -18,8 +18,21 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/customer', to: 'customers#index'
-  get "/dishes", to: 'customers#dishes'
+
+  resources :customers do
+    get "/dishes", on: :member,  to: 'customers#dishes'
+    put "/add/:dish_id" , on: :member, to: 'customers#add'
+  end
+
+  # get '/customer', to: 'customers#index'
+  # get "/dishes", to: 'customers#dishes'
+  # put '/add/:dish_id', to: 'customers#add_to_carts'
+
+  resources :carts
+
+
+
+  
 
 
 

@@ -4,7 +4,12 @@ class CustomersController < ApplicationController
 	end
 
 	def dishes
-		@restaurant = Restaurant.find(params[:restaurant_id])
+		@restaurant = Restaurant.find(params[:id])
 		@dishes = @restaurant.dishes
+	end
+
+	def add
+		puts "update is called"
+
 	end
 end

@@ -1,0 +1,17 @@
+<div>
+	<h1 align="center">Cart</h1>
+	<h3>Cart-Items</h3>
+	<% if @cart_items.present? %>
+	<div style="display: flex; flex-wrap:wrap; gap: 80px;">
+	<% @cart_items.each do |cart_item| %>
+	<div>
+		<h4>Dish name : <%=cart_item.dish.name %></h4>
+		<h4>price : <%=cart_item.dish.price %></h4>
+		<h4>quantity : <%=cart_item.quantity%></h4>
+	</div>
+	<% end %>
+	<% else %>
+	<h3>NO items in cart</h3>
+	<% end %>
+
+</div>
