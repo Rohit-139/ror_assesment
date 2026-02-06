@@ -1,4 +1,7 @@
+
 class SignupController < ApplicationController
+	skip_before_action :authorized, only: [:create, :index, :new_owner, :new_customer ,:login]
+	include JsonWebToken
 	def index 
 	end
 
@@ -28,13 +31,12 @@ class SignupController < ApplicationController
  	email = params[:signup] [:email]
  	password = params[:signup] [:password]
  	@customer = Customer.find_by(email: email)
-
  	if @customer&.authenticate(password)
- 		redirect_to home_path
+ 		# session[:customer_id] = @customer.id
+ 		@token = encode(user_id: @customer.id)
+ 		redirect_to customers_path
  	else 
-
  		render :login , status: :unprocessable_entity
-
  	end
 
  end
@@ -44,6 +46,7 @@ class SignupController < ApplicationController
 	def create_customer 
 		@customer = Customer.new(customer_params)
 		if @customer.save!
+			 @token = encode(user_id: @customer.id)
 			redirect_to login_path
 		else
 			flash.now[:alert] = @customer.errors.full_messages.to_sentence

@@ -1,5 +1,7 @@
 <div>
-	<h1 align="center">GoMato food platform</h1>
+	<div style="display: flex; gap: 400px;"><h1 align="center">GoMato food platform</h1> 
+		<h2><%= link_to 'Cart', carts_path%></h2>
+	</div>
 
 	<% if @restaurants.present? %>
 	<div style="display: flex; flex-wrap: wrap; gap: 20px;">
@@ -7,7 +9,7 @@
 	<div><h3> Name : <%=restaurant.name%></h3>
 	<h3> Description : <%=restaurant.description%></h3>
 	<h3> Rating : <%=restaurant.rating%></h3> 
-	<h3><%= link_to 'see dishes ',dishes_path(restaurant_id: restaurant.id) %></h3>
+	<h3><%= link_to 'see dishes ',dishes_customer_path(restaurant) %></h3>
 </div>
 	<% end %>
 	</div>
